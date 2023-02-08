@@ -1,5 +1,7 @@
 :root {
     --bg-color: rgb(40, 40, 40);
+    --bg-color-darker: rgb(20, 20, 20);
+    --bgcolor-lighter: rgb(50, 50, 50);
     --text-color: rgb(220, 255, 212);
     --read: limegreen;
     --unread: red;
@@ -17,6 +19,13 @@ h1 {
     margin-bottom: 2rem;
 }
 
+.library {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    padding: 1rem;
+    gap: 2rem;
+}
+
 .modal {
     display: none;
     width: 100vw;
@@ -26,8 +35,8 @@ h1 {
     position: fixed;
     top: 0;
     left: 0;
+    z-index: 1;
 }
-
 
 .modal form {
     box-sizing: border-box;
@@ -37,7 +46,7 @@ h1 {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: red;
+    background-color: var(--bg-color-darker);
     padding: 10px;
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -67,14 +76,122 @@ form button {
     align-self: stretch;
 }
 
-.read-label,
 .pages-label {
     grid-column: span 1;
+}
+
+.read-label{
+    display: inline-flex;
+    align-items: center;
+    /* justify-self: center; */
+    font-size: 1.5rem;
+}
+
+.read-label .is-read-toggle {
+    position: relative;
+    cursor: pointer;
+}
+
+input[type=checkbox] {
+    height: 0;
+    width: 0;
+    visibility: hidden;
+}
+
+.read-label .is-read-toggle::before,
+.read-label .is-read-toggle::after {
+    content: '';
+    display: block;
+    margin: 0 7px;
+    transition: .25s;
+}
+
+.read-label .is-read-toggle::before {
+    height: 2rem;
+    width: 4rem;
+    border-radius: 1rem;
+    background: var(--unread);
+}
+
+.read-label .is-read-toggle::after {
+    position: absolute;
+    top: 50%;
+    transform: translate(.1rem, -50%);
+    height: 1.75rem;
+    width: 1.75rem;
+    border-radius: 50%;
+    background: black;
+}
+
+.read-label [type=checkbox]:checked+.is-read-toggle::before {
+    background: var(--read);
+}
+
+.read-label [type=checkbox]:checked+.is-read-toggle::after {
+    transform: translate(calc(3.9rem - 100%), -50%);
+}
+
+.read-label [type=checkbox]:active+.is-read-toggle::after {
+    width: 2.5rem;
 }
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
+}
+
+.book-card {
+    background: var(--bgcolor-lighter);
+    width: calc(min(100%, 350px));
+    box-sizing: border-box;
+    aspect-ratio: 1 / 1;
+    box-shadow: 0px 0px 10px 2px var(--unread);
+    padding: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(4, auto) 1fr;    
+}
+
+.read {
+    box-shadow: 0px 0px 10px 2px var(--read);
+}
+
+.book-card h2,
+.book-card label {
+    grid-column: span 2;
+}
+
+.book-card label {
+    margin-top: 20px;
+    justify-self: center;
+}
+
+.book-card .read-label {
+    justify-self: start;
+}
+
+.book-card button {
+    align-self: end;
+    padding: 4px;
+    background: none;
+    border: none;
+    position: relative;
+}
+
+.book-card button:hover {
+    scale: 1.2;
+}
+
+.book-card i {
+    font-size: 2rem;
+}
+
+.fa-trash-can {
+    color: red;
+}
+
+.fa-pencil {
+    color: yellow;
 }
 
 #add-new-button {

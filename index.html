@@ -16,7 +16,21 @@
 
     <h1 class="header">My Library</h1>
 
-    <div class="library" id="library"></div>
+    <div class="library" id="library">
+        <!-- <div class="book-card">
+            <h2>title</h2>
+            <h2>by author</h2>
+            <h2>pages</h2>
+            <label class="read-label">
+                <p>Not Read</p>
+                <input type="checkbox" class="is-read" title="Read?"/>
+                <span class="is-read-toggle"></span>
+                <p>Read</p>
+            </label>
+            <button class="delete"><i class="fa-solid fa-trash-can"></i></button>
+            <button class="edit"><i class="fa-solid fa-pencil"></i></button>
+        </div> -->
+    </div>
     
     <div id="new-book-modal" class="modal">
         <form id="new-book-form">
@@ -29,8 +43,13 @@
             <label class="pages-label" for="new-pages"># of Pages</label>
             <input type="number" id="new-pages" name="new-pages" min="1" max="9999" required>
 
-            <label class="read-label" for="new-read">Read?</label>
-            <input type="checkbox" id="new-read" name="new-read">
+            <label class="read-label" for="new-read">
+                Not Read
+                <input type="checkbox" id="new-read" name="new-read" title="Read?">
+                <span class="is-read-toggle"></span>
+                Read
+            </label>
+            
 
             <button type="button" id="new-cancel">Cancel</button>
 
@@ -49,8 +68,13 @@
             <label class="pages-label" for="edit-pages"># of Pages</label>
             <input type="number" id="edit-pages" name="edit-pages" min="1" max="9999" required>
 
-            <label class="read-label" for="edit-read">Read?</label>
-            <input type="checkbox" id="edit-read" name="edit-read">
+            <label class="read-label" for="edit-read">
+                Not Read
+                <input type="checkbox" id="edit-read" name="edit-read" title="Read?">
+                <span class="is-read-toggle"></span>
+                Read   
+            </label>
+            
 
             <button type="button" id="edit-cancel">Cancel</button>
 
@@ -59,8 +83,6 @@
     </div>
 
     <button type="button" id="add-new-button"><i class="fa-solid fa-plus" title="Add new book"></i></button>
-
-    <button id="test">Test</button>
     
 </body>
 </html>
