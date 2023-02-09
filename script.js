@@ -8,6 +8,15 @@ const newCancel = document.getElementById('new-cancel');
 const newSubmit = document.getElementById('new-submit');    
 const newBookModal = document.getElementById('new-book-modal');
 const library = document.getElementById('library');
+// const editTitle = document.getElementById('edit-title');
+// const editAuthor = document.getElementById('edit-author');
+// const editPages = document.getElementById('edit-pages');
+// const editIsRead = document.getElementById('edit-read');
+// const editCancel = document.getElementById('edit-cancel');
+// const editSubmit = document.getElementById('edit-submit');
+// const editBookModal = document.getElementById('edit-book-modal');
+// const editBookForm = document.getElementById('edit-book-form');
+
 
 let myLibrary = [];
 
@@ -18,15 +27,40 @@ function Book(title, author, pages, isRead) {
     this.isRead = isRead;
 };
 
+Book.prototype.deleteMe = function(index) {
+    console.log(this);
+    delete myLibrary[index];
+}
+
+// Book.prototype.editMe = function(index) {
+//     console.log(index);
+//     editBookModal.style.display = 'block';
+//     editTitle.value = myLibrary[index].title;
+//     editAuthor.value = myLibrary[index].author;
+//     editPages.value = myLibrary[index].pages;
+//     editIsRead.checked = myLibrary[index].isRead;
+// }
+
+// editSubmit.addEventListener('click', () => {
+//     event.preventDefault()
+//     // editBook();
+//     console.log(index);
+// });
+
+// editCancel.addEventListener('click', cancelEdit);
+
+// function cancelEdit() {
+//     editBookModal.style.display = 'none';
+//     editBookForm.reset();
+// }
+
 addNewButton.addEventListener('click', addNewBook);
 
 function addNewBook() {
-    newBookModal.style.display = 'block';   
+    newBookModal.style.display = 'block';
 };
 
 newSubmit.addEventListener('click', addBooktoLibrary);
-
-newCancel.addEventListener('click', cancelNew);
 
 function addBooktoLibrary() {
     event.preventDefault();
@@ -35,11 +69,10 @@ function addBooktoLibrary() {
     myLibrary.push(newBook);
     let index = myLibrary.length - 1;
     addBookToScreen(index);
-    console.log(index);
     newBookForm.reset();
 };
 
-function addBookToScreen (index) {
+function addBookToScreen(index) {
     const bookCard = document.createElement('div');
     bookCard.classList = 'book-card';
     library.appendChild(bookCard);
@@ -67,6 +100,16 @@ function addBookToScreen (index) {
     const readCheckbox = document.createElement('input');
     readCheckbox.setAttribute('type', 'checkbox');
     readCheckbox.classList = 'is-read';
+    readCheckbox.addEventListener('change', () => {
+        bookCard.classList.toggle('read');
+        if (readCheckbox.checked === true) {
+            myLibrary[index].isRead = true;
+        }
+        else {
+            myLibrary[index].isRead = false;
+        }
+    });
+
     if (myLibrary[index].isRead === true) {
         readCheckbox.checked = true;
         bookCard.classList.add('read')
@@ -85,23 +128,33 @@ function addBookToScreen (index) {
     deleteButton.classList = 'delete';
     bookCard.appendChild(deleteButton);
 
+    deleteButton.addEventListener('click', () => {
+        myLibrary[index].deleteMe(index);
+        bookCard.remove();
+    });
+
     const deleteIcon = document.createElement('i');
     deleteIcon.classList = 'fa-solid fa-trash-can';
     deleteIcon.setAttribute('title', 'Delete');
     deleteButton.appendChild(deleteIcon);
 
-    const editButton = document.createElement('button');
-    editButton.classList = 'edit';
-    bookCard.appendChild(editButton);
+    // const editButton = document.createElement('button');
+    // editButton.classList = 'edit';
+    // bookCard.appendChild(editButton);
 
-    const editIcon = document.createElement('i');
-    editIcon.classList = 'fa-solid fa-pencil';
-    editIcon.setAttribute('title', 'Edit');
-    editButton.appendChild(editIcon);
+    // editButton.addEventListener('click', () => {
+    //     myLibrary[index].editMe(index);
+    // });
+
+    // const editIcon = document.createElement('i');
+    // editIcon.classList = 'fa-solid fa-pencil';
+    // editIcon.setAttribute('title', 'Edit');
+    // editButton.appendChild(editIcon);
 };
+
+newCancel.addEventListener('click', cancelNew);
 
 function cancelNew() {
     newBookForm.reset();
     newBookModal.style.display = 'none';
 };
-
