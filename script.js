@@ -20,17 +20,21 @@ const library = document.getElementById('library');
 
 let myLibrary = [];
 
-function Book(title, author, pages, isRead) {
+class Book {
+    constructor(title, author, pages, isRead){
     this.title = title;
     this.author = author;
     this.pages = pages;
     this.isRead = isRead;
+    }
+    
+    deleteMe(index) {delete myLibrary[index]};
 };
 
-Book.prototype.deleteMe = function(index) {
-    console.log(this);
-    delete myLibrary[index];
-}
+// Book.prototype.deleteMe = function(index) {
+//     console.log(this);
+//     delete myLibrary[index];
+// }
 
 // Book.prototype.editMe = function(index) {
 //     console.log(index);
